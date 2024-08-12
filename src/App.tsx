@@ -16,9 +16,6 @@ const router = createBrowserRouter([
   {
     id: "root",
     path: "/",
-    loader() {
-      return { user: "test" };
-    },
     errorElement: <ErrorBoundary />,
     Component: Home,
   },
