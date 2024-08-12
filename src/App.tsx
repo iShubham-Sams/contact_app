@@ -10,6 +10,7 @@ import protectedLoader from "./utils/protectedLoader";
 import Contact from "./pages/Contact";
 import Layout from "./components/layout";
 import "react-toastify/dist/ReactToastify.css";
+import ChartAndMap from "./pages/ChartAndMap";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       {
         path: "charts/map",
         loader: protectedLoader,
+        Component: ChartAndMap,
       },
     ],
   },
