@@ -24,6 +24,7 @@ const CreateAndUpdateContactForm = ({ setModalOpen }: { setModalOpen: Dispatch<R
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<Contact>({
     resolver: zodResolver(contactSchema),
   });
@@ -32,6 +33,7 @@ const CreateAndUpdateContactForm = ({ setModalOpen }: { setModalOpen: Dispatch<R
     const addContactPayload = { ...data, index: (contact?.length ?? 0) + 1 };
     dispatch(addContact(addContactPayload));
     toast("Add Contact");
+    reset();
     setModalOpen(false);
   };
 
