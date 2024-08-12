@@ -1,6 +1,7 @@
 import { HiArrowUpRight } from "react-icons/hi2";
 import Button from "../components/share/Button";
 import { useNavigate } from "react-router";
+import { fakeAuthProvider } from "../utils/fakeAuth";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,7 +16,11 @@ const Home = () => {
       </div>
       <Button
         onClick={() => {
-          navigate("/auth/login");
+          if (fakeAuthProvider.isAuthenticated) {
+            navigate("/contact");
+          } else {
+            navigate("/auth/login");
+          }
         }}
         className="flex gap-2">
         Explore <HiArrowUpRight />{" "}
