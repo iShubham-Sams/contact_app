@@ -9,6 +9,7 @@ import { fakeAuthProvider } from "./utils/fakeAuth";
 import protectedLoader from "./utils/protectedLoader";
 import Contact from "./pages/Contact";
 import Layout from "./components/layout";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
