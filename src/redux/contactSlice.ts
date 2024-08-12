@@ -1,12 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { ContactDetails } from '../types'
 
-type ContactDetails = {
-    firstName: string;
-    lastName: string;
-    status: "active" | "inactive";
-    index: number
-}
+
 export interface CounterState {
     userDetails: null | ContactDetails[]
 }
@@ -26,8 +22,8 @@ export const contactSlice = createSlice({
                 state.userDetails = [action.payload]
             }
         },
-        editContact: (state, action: PayloadAction<ContactDetails>) => {
-
+        editContact: (state, action: PayloadAction<ContactDetails[]>) => {
+            state.userDetails = action.payload
         },
         deleteContact: (state, action: PayloadAction<number>) => {
             state.userDetails = state.userDetails?.filter((val) => val.index != action.payload) ?? []

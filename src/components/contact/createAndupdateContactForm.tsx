@@ -5,9 +5,10 @@ import Input from "../share/Input";
 import Button from "../share/Button";
 import RadioGroup from "../share/RadioButton";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { addContact } from "../../redux/contactSlice";
+import { addContact, editContact } from "../../redux/contactSlice";
 import { toast } from "react-toastify";
-import { Dispatch } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { ContactDetails } from "../../types";
 
 const contactSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name is too long"),
@@ -15,8 +16,9 @@ const contactSchema = z.object({
   status: z.enum(["active", "inactive"], { message: "Status is required" }),
 });
 type Contact = z.infer<typeof contactSchema>;
+type EditContact = (ContactDetails & { index: number }) | null;
 
-const CreateAndUpdateContactForm = ({ setModalOpen }: { setModalOpen: Dispatch<React.SetStateAction<boolean>> }) => {
+const CreateAndUpdateContactForm = ({ setModalOpen, setEditContact, editContactValue }: { setModalOpen: Dispatch<React.SetStateAction<boolean>>; setEditContact: Dispatch<SetStateAction<EditContact>>; editContactValue?: EditContact }) => {
   const contact = useAppSelector((val) => val.contact.userDetails);
   const dispatch = useAppDispatch();
 
@@ -25,17 +27,47 @@ const CreateAndUpdateContactForm = ({ setModalOpen }: { setModalOpen: Dispatch<R
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<Contact>({
     resolver: zodResolver(contactSchema),
+    defaultValues: {
+      firstName: editContactValue?.firstName,
+      lastName: editContactValue?.lastName,
+      status: editContactValue?.status,
+    },
   });
+  console.log(setEditContact);
 
   const onSubmit: SubmitHandler<Contact> = (data) => {
-    const addContactPayload = { ...data, index: (contact?.length ?? 0) + 1 };
-    dispatch(addContact(addContactPayload));
-    toast("Add Contact");
-    reset();
-    setModalOpen(false);
+    if (editContactValue) {
+      if (contact) {
+        let indexToEdit = contact?.findIndex((val) => val.index == editContactValue.index);
+        let contactsCopy = [...contact];
+        contactsCopy[indexToEdit] = { ...data, index: editContactValue.index };
+        dispatch(editContact(contactsCopy));
+        toast("Contact Edit Successfully");
+        setEditContact(null);
+        reset();
+        setModalOpen(false);
+      }
+    } else {
+      const addContactPayload = { ...data, index: contact?.length ?? 0 };
+      dispatch(addContact(addContactPayload));
+      toast("Add Contact");
+      reset();
+      setModalOpen(false);
+    }
   };
+  useEffect(() => {
+    if (editContactValue) {
+      setValue("firstName", editContactValue.firstName);
+      setValue("lastName", editContactValue.lastName);
+      setValue("status", editContactValue.status);
+    }
+    return () => {
+      reset();
+    };
+  }, [editContactValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -52,7 +84,7 @@ const CreateAndUpdateContactForm = ({ setModalOpen }: { setModalOpen: Dispatch<R
       />
       <div className="justify-end flex mt-4">
         <Button type="submit" size="lg">
-          Submit
+          {editContactValue ? "Save Edit Contact" : "Save Contact"}
         </Button>
       </div>
     </form>

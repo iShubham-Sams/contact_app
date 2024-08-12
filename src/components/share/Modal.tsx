@@ -1,7 +1,7 @@
 import { Dispatch, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
-export function Modal({ modalOpen, setModalOpen, children }: { modalOpen: boolean; setModalOpen: Dispatch<React.SetStateAction<boolean>>; children: React.ReactNode }) {
+export function Modal({ modalOpen, setModalOpen, children }: { modalOpen: boolean; setModalOpen: () => void; children: React.ReactNode }) {
   const dialogRef = useRef(null);
   useEffect(() => {
     if (modalOpen) {
@@ -11,15 +11,11 @@ export function Modal({ modalOpen, setModalOpen, children }: { modalOpen: boolea
       document.body.style.overflow = "auto";
     };
   }, [modalOpen]);
-  function onDismiss() {
-    setModalOpen(false);
-  }
-
   return createPortal(
     <div className={`${modalOpen ? "modal-backdrop" : ""}`}>
-      <dialog ref={dialogRef} open={modalOpen} className={`${modalOpen ? "modal" : ""}`} onClose={onDismiss}>
+      <dialog ref={dialogRef} open={modalOpen} className={`${modalOpen ? "modal" : ""}`} onClose={setModalOpen}>
         {children}
-        <button onClick={onDismiss} className="close-button" />
+        <button onClick={setModalOpen} className="close-button" />
       </dialog>
     </div>,
     document.getElementById("modal-root")!
