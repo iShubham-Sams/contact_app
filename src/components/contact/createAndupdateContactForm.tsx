@@ -41,7 +41,7 @@ const CreateAndUpdateContactForm = ({ setModalOpen, setEditContact, editContactV
   const onSubmit: SubmitHandler<Contact> = (data) => {
     if (editContactValue) {
       if (contact) {
-        let indexToEdit = contact?.findIndex((val) => val.index == editContactValue.index);
+        let indexToEdit = contact?.findIndex((val) => val.index === editContactValue.index);
         let contactsCopy = [...contact];
         contactsCopy[indexToEdit] = { ...data, index: editContactValue.index };
         dispatch(editContact(contactsCopy));
@@ -67,7 +67,7 @@ const CreateAndUpdateContactForm = ({ setModalOpen, setEditContact, editContactV
     return () => {
       reset();
     };
-  }, [editContactValue]);
+  }, [editContactValue?.firstName, editContactValue?.lastName, editContactValue?.status]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

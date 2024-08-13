@@ -26,7 +26,7 @@ export const contactSlice = createSlice({
             state.userDetails = action.payload
         },
         deleteContact: (state, action: PayloadAction<number>) => {
-            state.userDetails = state.userDetails?.filter((val) => val.index != action.payload) ?? []
+            state.userDetails = state.userDetails?.filter((val) => val.index !== action.payload) ?? []
         }
     },
 })

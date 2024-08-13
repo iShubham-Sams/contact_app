@@ -4,7 +4,7 @@ import Map from "../components/chartAndMap/Map";
 import { getWorldWidData } from "../utils/api/chartAndMap";
 
 const ChartAndMap = () => {
-  const { data: worldData, isLoading } = useQuery({
+  const { data: worldData } = useQuery({
     queryKey: ["worldData"],
     queryFn: getWorldWidData,
   });

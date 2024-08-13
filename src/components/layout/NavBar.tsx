@@ -1,4 +1,3 @@
-import { useAppSelector } from "../../redux/hook";
 import { fakeAuthProvider } from "../../utils/fakeAuth";
 
 const Navbar = () => {
