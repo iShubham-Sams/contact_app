@@ -36,7 +36,6 @@ const CreateAndUpdateContactForm = ({ setModalOpen, setEditContact, editContactV
       status: editContactValue?.status,
     },
   });
-  console.log(setEditContact);
 
   const onSubmit: SubmitHandler<Contact> = (data) => {
     if (editContactValue) {
@@ -67,7 +66,7 @@ const CreateAndUpdateContactForm = ({ setModalOpen, setEditContact, editContactV
     return () => {
       reset();
     };
-  }, [editContactValue?.firstName, editContactValue?.lastName, editContactValue?.status]);
+  }, [editContactValue?.firstName, editContactValue?.lastName, editContactValue?.status, reset, setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
