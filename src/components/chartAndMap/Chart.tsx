@@ -33,7 +33,7 @@ const Chart = () => {
     }
   };
   return (
-    <ResponsiveContainer width="100%" height="50%">
+    <ResponsiveContainer width="100%" height="30%">
       <LineChart
         width={500}
         height={300}

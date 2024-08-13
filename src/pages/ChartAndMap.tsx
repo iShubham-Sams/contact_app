@@ -1,9 +1,11 @@
 import Chart from "../components/chartAndMap/Chart";
+import Map from "../components/chartAndMap/Map";
 
 const ChartAndMap = () => {
   return (
-    <div className="h-[90vh] p-4">
+    <div className=" p-4 space-y-4">
       <Chart />
+      <Map />
     </div>
   );
 };
