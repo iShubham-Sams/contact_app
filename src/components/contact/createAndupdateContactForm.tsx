@@ -66,7 +66,7 @@ const CreateAndUpdateContactForm = ({ setModalOpen, setEditContact, editContactV
     return () => {
       reset();
     };
-  }, [editContactValue?.firstName, editContactValue?.lastName, editContactValue?.status, reset, setValue]);
+  }, [editContactValue, reset, setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
