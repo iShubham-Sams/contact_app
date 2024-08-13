@@ -12,6 +12,7 @@ const Map = () => {
     cacheTime: 5000,
     // refetchInterval: 5000,
   });
+
   const iconMarkup = renderToStaticMarkup(<CiLocationOn size={10} color="red" />);
   const customIcon = new L.DivIcon({
     html: iconMarkup,

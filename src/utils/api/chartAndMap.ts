@@ -21,6 +21,33 @@ type Chart = {
     deaths: Record<string, number>;
     recovered: Record<string, number>;
 }
+export const getWorldWidData = async () => {
+    const { data } = await axiosInstance.get('/all')
+    return data as WorldWidData
+}
+type WorldWidData = {
+    "updated": number,
+    "cases": number,
+    "todayCases": number,
+    "deaths": number,
+    "todayDeaths": number,
+    "recovered": number,
+    "todayRecovered": number,
+    "active": number,
+    "critical": number,
+    "casesPerOneMillion": number,
+    "deathsPerOneMillion": number,
+    "tests": number,
+    "testsPerOneMillion": number,
+    "population": number,
+    "oneCasePerPeople": number,
+    "oneDeathPerPeople": number,
+    "oneTestPerPeople": number,
+    "activePerOneMillion": number,
+    "recoveredPerOneMillion": number,
+    "criticalPerOneMillion": number,
+    "affectedCountries": number
+}
 
 export const getMapData = async () => {
     const { data } = await axiosInstance.get('/countries')

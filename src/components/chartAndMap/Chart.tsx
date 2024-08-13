@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { getChartData } from "../../utils/api/chartAndMap";
 const Chart = () => {
   const [caseChartData, setCaseChartData] = useState<{ name: string; case: number }[] | null>(null);
-  const { data: graphData } = useQuery({
+  const { data: graphData, isLoading } = useQuery({
     queryKey: ["graphData"],
     queryFn: getChartData,
     cacheTime: 5000,
