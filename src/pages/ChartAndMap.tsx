@@ -2,8 +2,6 @@ import { useQuery } from "react-query";
 import Chart from "../components/chartAndMap/Chart";
 import Map from "../components/chartAndMap/Map";
 import { getWorldWidData } from "../utils/api/chartAndMap";
-import { Suspense } from "react";
-import { Hourglass } from "react-loader-spinner";
 
 const ChartAndMap = () => {
   const { data: worldData, isLoading } = useQuery({
